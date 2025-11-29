@@ -1,2 +1,1 @@
-# electron_template
-electron_template
+node 20.19.0

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no,email=no,adress=no" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0 viewport-fit=cover" />
+  <script src="./js/jquery-3.6.0.min.js"></script>
+  <script src="./js/flexible.js"></script>
+  <!-- <script type="module" src="./newTracking/newEventTrack.js"></script> -->
+  <script src="./js/jhshThemeActivityTool.js"></script>
+
+  <script src="./js/uradctj.min.js"></script>
+  <script src="./js/flexible.js"></script>
+  <!-- <script src="./js/swiper-bundle.min.js"></script> -->
+  <script src="./js/randomuuid.js"></script>
+  <script src="./js/data.js"></script>
+  <!-- <link rel="stylesheet" href="css/swiper-bundle.min.css" /> -->
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      /*禁止长按链接与图片弹出菜单*/
+      -webkit-touch-callout: none;
+      -ms-touch-callout: none;
+      -moz-touch-callout: none;
+      font-family: -apple-system, Helvetica, sans-serif;
+    }
+
+    img {
+      vertical-align: middle;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+    }
+
+    a,
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/
+    }
+
+    #wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .container {
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      min-height: 100vh;
+      /* background: url('images/bg.png') no-repeat; */
+      background-size: 100% auto;
+      /* padding-top: 9.58rem; */
+      /* padding-bottom: 0.57rem; */
+      box-sizing: border-box;
+      /*background-color: #ffe1b2;*/
+    }
+
+    .noneBox {
+      /* position: relative; */
+      text-align: center;
+    }
+
+    img {
+      pointer-events: none;
+    }
+
+    img {
+      display: inline-block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      margin-top: -1px;
+      border: none;
+    }
+    .H5_02,.H5_04,.H5_06
+    ,.H5_08,.H5_10,.H5_12
+    ,.H5_14,.H5_16,.H5_18
+    ,.H5_20,.H5_22,.H5_24{
+      margin-left: -1px;
+    }
+    .cy-mask {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0.7;
+      z-index: 99;
+    }
+
+    .rulesBtn {
+      position: fixed;
+      right: 0;
+      /* top: 3.87rem;
+      width: 0.56rem;
+      height: 1.37rem; */
+      background: url('images/rule_btn.png') no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .fixedShare {
+      position: fixed;
+      right: 0;
+      /* top: 5.35rem;
+      width: 0.56rem;
+      height: 0.91rem; */
+      background: url('images/share_btn.png') no-repeat center;
+      background-size: 100% 100%;
+    }
+
+
+    /*dialog*/
+    .rulerBox {
+      display: none;
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      right: 20px;
+      height: 80%;
+      background: #fff;
+      border-radius: 8px;
+      transform: translate(0, -50%);
+      z-index: 111;
+    }
+
+    .rulerBox .close {
+      position: absolute;
+      top: 0px;
+      right: 0;
+      width: 44px;
+      height: 52px;
+      background: url(images/close.png) no-repeat center;
+      -webkit-background-size: 14px 14px;
+      background-size: 14px 14px;
+      z-index: 1234;
+    }
+
+    .rulerBox .ruler-title {
+      padding: 0 12px;
+      height: 52px;
+      line-height: 52px;
+      font-size: 15px;
+      color: #333;
+      background: #f7f7f7;
+      border-bottom: 1px solid #ddd;
+      border-radius: 8px 8px 0 0;
+      z-index: 166;
+    }
+
+    .rulerBox .rulerMain {
+      height: 84%;
+      margin: 20px 0;
+      padding: 0 20px 0 28px;
+      z-index: 134;
+      overflow-y: auto;
+    }
+
+    .rulerBox .rulerMain .sub-li {
+      padding: 0;
+    }
+
+    .rulerBox .rulerMain .sub-li+.sub-li {
+      margin-top: 18px;
+    }
+
+    .rulerBox .rulerMain .sub-li .sub-tit {
+      position: relative;
+      line-height: 26px;
+      font-size: 15px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .rulerBox .rulerMain .sub-li .sub-tit:before {
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      margin-top: -3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #b2b2b2;
+      content: "";
+    }
+
+    .rulerBox .rulerMain .sub-li .sub-cont {
+      line-height: 22px;
+      font-size: 13px;
+      color: #333;
+      overflow: auto;
+    }
+
+    .sub-li {
+      list-style-type: none;
+
+    }
+
+    .sub-cont {
+      /* height: 3.2rem; */
+      overflow: auto;
+    }
+
+    /* 兼容多个浏览器 */
+    pre {
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      *word-wrap: break-word;
+      *white-space: normal;
+    }
+
+    .swiper-container {
+      position: relative;
+      width: 7rem;
+      height: 6.99rem;
+      border-radius: 0.3rem;
+    }
+
+    .swiper-slide {
+      width: 6.99rem !important;
+      height: 6.99rem !important;
+      transition: 300ms;
+      position: relative;
+    }
+
+    .swiper-img {
+      width: 6.99rem;
+      height: 6.99rem;
+    }
+
+    .swiper-slide-active,
+    .swiper-slide-duplicate-active {
+      transform: scale(1.0);
+    }
+
+    .swiper-pagination {
+      position: absolute;
+      bottom: 10.01rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      height: 10px;
+    }
+
+    .swiper-pagination-bullet {
+      width: 0.15rem;
+      height: 0.15rem;
+      background-color: #fad9b8;
+      border-radius: 0.08rem;
+      margin: 0 0.07rem !important;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: #f5b472;
+    }
+
+    .sc-list {
+      width: 6.99rem;
+      height: 2.75rem;
+      background: url('images/sc-bg.png') no-repeat center;
+      background-size: 100% 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0.4rem auto;
+      box-sizing: border-box;
+      padding-top: 0.88rem;
+      padding-left: 0.28rem;
+      padding-right: 0.28rem;
+    }
+
+    .sc-item {
+      width: 1.43rem;
+      height: 1.44rem;
+    }
+
+    .glv {
+      width: 6.99rem;
+      height: 5.10rem;
+      margin: 0 auto;
+    }
+
+    .glv-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ad-bottom {
+      width: 7rem;
+      height: 1.91rem;
+      background: url('images/bottom-ad.png') no-repeat center;
+      background-size: 100% 100%;
+      border-radius: 0.2rem;
+      margin: 0.4rem auto 0;
+    }
+
+    .content-text {
+      font-size: 0.3rem;
+      font-weight: normal;
+      font-stretch: normal;
+      line-height: 0.44rem;
+      letter-spacing: 0.02rem;
+      color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="xytc"
+    style="position: fixed;z-index: 1111;left:0;top:0;width: 100%;height: 100%;background: #000;opacity: 0.75;display: none;">
+  </div>
+  <div class="xytc"
+    style="position: fixed;z-index:1111;width: 60%;left:15%;top:20%;padding:10px 5% 20px 5%;border-radius: 5px;background: #fff;display: none;">
+    <p style="padding:20px 0;text-align: center;font-size: 14px;color:#333;">抱歉，您所在城市无法参与活动！</p>
+    <p style="width:50%;margin:0 auto;line-height: 30px;text-align: center;font-size: 14px;color:#fff;border-radius: 30px;background: rgb(228 52 32);"
+      class="guanbitc">我知道了</p>
+  </div>
+  <div id="wrapper">
+    <div class="container">
+      <div class="noneBox">
+
+      </div>
+      <div class="rulesBtn"></div>
+      <div class="fixedShare" onclick="goShare()"></div>
+      <!-- dialog -->
+      <div class="cy-mask"></div>
+      <div class="rulerBox">
+        <div class="close"></div>
+        <div class="ruler-title">活动规则</div>
+        <div class="rulerMain">
+          <div class="sub-li">
+            <!-- <div class="sub-tit">“食”来运转</div> -->
+            <div class="sub-cont">
+              <pre></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+<script>
+
+
+  // 这里添加允许参加活动的城市名称清单
+  let addressArry = page_data.address_arry
+  // 对于省直辖县，请自行查询目标省直辖县行政区划代码，添加到此列表，比如仙桃市为429004
+  let adCodeArry = []
+  // myAlertinfo('抱歉，您所在城市无法参与活动!');
+  function jump2(url) {
+    console.log(url);
+    if (isInClient()) {//是建行生活App才调用位置获取服务
+      getPosition(function (data) { //先判断城市名称
+        console.log("data=====", data);
+        for (let item of addressArry) {
+          if (item == data.cityName) { //满足位置限制要求
+            receiveCoupon(url)//领取优惠券
+            return
+          }
+        }
+        //再补充判断省直辖县行政区划代码
+        for (let item of adCodeArry) {
+          if (item == data.adCode) { //满足位置限制要求
+            receiveCoupon(url)//领取优惠券
+            return
+          }
+        }
+        //否则提示不能参加活动
+        // myAlertinfo('抱歉，您所在城市无法参与活动!');
+        $(".xytc").fadeIn();
+      })
+    } else { //非建行生活App环境，引导用户打开建行生活App参加活动
+      outJumpLink(location.href)
+    }
+  }
+
+
+  function jump1(_url) {
+    //  autoJumpLink(_url);
+    if (isInClient()) {//是建行生活App才调用位置获取服务
+      receiveCoupon(_url)//领取优惠券
+    } else {
+      //非建行生活App环境，引导用户打开建行生活App参加活动
+      outJumpLink(location.href)
+    }
+  }
+
+  function jump3(url){
+    if(url){
+      window.location.assign(url)
+    }
+   
+  }
+  function receiveCoupon(_url) {
+    // var top = $(document).scrollTop();
+    // localStorage.setItem('subpage', top);
+    setTimeout(() => {
+      // 优惠券详情链接，注意，添加“&fromPage=webview”参数可以让客户在优惠券详情页面点击返回时，回到活动落地页
+      autoJumpLink(_url)
+    }, 300)
+  }
+  $(function () {
+
+    console.log("0000===", window.$uradcTj);
+
+    $(".guanbitc").click(function () {
+      $(".xytc").fadeOut();
+    });
+    // selfAdaption();
+
+    // rem自适应
+    // function selfAdaption() {
+    //   document.documentElement.style.fontSize =
+    //     (100 * document.documentElement.clientWidth) / 2300 + "px";
+    // }
+    /* 监听visibility change，返回进入子会场前的浏览位置 并清除缓存*/
+    console.log('重新加载')
+    document.addEventListener("visibilitychange", function () {
+      console.log('visibilitychange')
+      if (document.visibilityState == 'visible') {
+        console.log('visibilitychange == visible')
+
+        if (localStorage.subpage) {
+          $('html,body').animate({ scrollTop: localStorage.subpage }, 0);
+          // $('html,body').scrollTop(localStorage.subpage);
+          console.log('before remove localStorage.subpage: ' + localStorage.subpage);
+          localStorage.removeItem('subpage');
+          console.log('after remove localStorage.subpage: ' + localStorage.subpage);
+        }
+
+        else {
+          // ("html,body").animate({ scrollTop: 0 },0);
+          console.log('no localStorage.subpage')
+        }
+      }
+    });
+
+    // close dialog
+    $(".rulerBox .close").click(function () {
+      $(".cy-mask").fadeOut();
+      $(".rulerBox").fadeOut();
+      $("body").css({
+        "overflow-x": "auto",
+        "overflow-y": "auto",
+      });
+    });
+
+    // open dialog
+    $(".rulesBtn").click(function () {
+      $(".cy-mask").fadeIn();
+      $(".rulerBox").show();
+      $("body").css({
+        "overflow-x": "hidden",
+        "overflow-y": "hidden",
+      });
+    });
+  })
+  //判断是否端内
+  function isInClient() {
+    // return getClienVersion() ? true : false;
+    var info = navigator.userAgent
+    return (info.indexOf('CloudMercWebView') > -1 || info.indexOf('CCBSDK') > -1) ? true : false
+  }
+  console.log("端内：", isInClient());
+  console.log("ccbbriage", window.CCBBridge == true);
+  //------------------------------分享显示与否------------------------------------------------
+  if (!isInClient() || !window.CCBBridge) {
+    $('.fixedShare').css('display', 'none');
+  }
+
+  var uuid = localStorage.getItem('randomuuid')
+  if (!uuid) {
+    localStorage.setItem('randomuuid', randomUUID())
+  }
+
+  function btj(options = {}) {
+    let opt = {
+      subject_id: "42",
+      is_first_time: "",
+      page_id: options.page_id || page_data.page_title, //如果都没有用 我就直接用title
+      page_name: page_data.page_title || "",
+      activity_id: options.activity_id || page_data.activity_id,
+      activity_name: options.activity_name || page_data.page_title || "",
+      channels: options.channels || "", //这个渠道参数 有可能有哪些值
+      source: options.source || "hd",
+      user_id: options.user_id || localStorage.getItem('randomuuid'), //填写用户ident或者cookie_id
+      user_key: options.user_key || localStorage.getItem('randomuuid'), //填写用户ident 没登录是空
+      parent_user_key: options.parent_user_key || "", //推荐用户标识
+      action_id: options.action_id || "11",
+      action_name: options.action_name || "访问", //行为数据 建议兼容广研那套。
+      data_source: "cs",
+      pid: options.pid || "",
+      pno: options.pno || "",
+      btno: options.btno || "",
+      acno: options.acno || "",
+      ck_acno: options.ck_acno || "",
+      ext_json: options.ext_json || "",
+      vtime: new Date().getTime(),
+      plat_code: "pdc",
+    };
+
+    let url = "https://pdckll.kerlala.com/point.jpg"
+
+    $.ajax({
+      type: 'GET',    // 指定请求方式（大小写均可）
+      url: url, // URL地址
+      data: opt,
+      success: function (res) {   // 回调函数
+        console.log(res);
+      }
+    }
+    )
+  }
+
+  try {
+    btj();
+  } catch (error) {
+    console.log("分享----111==", error)
+  }
+
+  //分享
+  function goShare() {
+    // alert('fenxiang11');
+    console.log('网页地址', window.location.href)
+    try {
+      btj({ action_id: "04", action_name: "分享" })
+    } catch (error) {
+      console.log("分享----222==", error)
+    }
+
+    doShare(page_data.share_obj.share_title, page_data.share_obj.share_desc)
+    // let requestObj = {
+    //     action: 'share',
+    //     params: {
+    //     share_id: '',
+    //     text: '信用卡专享，餐饮商超天天抢',/*分享的描述*/
+    //     title: '畅皖国庆，尽享优惠',/*标题*/
+    //     url: window.location.href,/*链接*/
+    //     image: 'https://res.yunbusiness.ccb.com/gbchannel/e_report/CCBLIFE/img/logo.45ebd170.png',
+    //     type: ''/*预留*/,
+
+    //   }
+    // };
+    // window.CCBBridge && window.CCBBridge.requestNative(JSON.stringify(requestObj), 'cbShare');
+  };
+
+
+
+</script>
+
+</html>
